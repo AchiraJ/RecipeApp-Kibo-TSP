@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from database import db
+from database import db, app
+from itsdangerous import URLSafeTimedSerializer
 
 
 class User(db.Model, UserMixin):
@@ -27,3 +28,17 @@ class User(db.Model, UserMixin):
 
     def get_id(self):
         return str(self.id)
+
+    def get_reset_password_token(self, expires_sec=1800):
+        s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        return s.dumps(self.id, salt='reset-password-salt')
+
+    @staticmethod
+    def verify_reset_password_token(token, expires_sec=1800):
+        s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(
+                token, salt='reset-password-salt', max_age=expires_sec)
+        except:
+            return None
+        return User.query.get(user_id)
