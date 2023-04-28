@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from models import User
+from models import *
+from dashboard import *
 from database import db, app
 from flask_mail import Message, Mail
 
@@ -108,8 +109,9 @@ def login():
             flash('You have been logged in successfully.')
             return redirect(url_for('dashboard'))
         else:
-            flash('Invalid username or password.')
+            flash('Invalid username or password. Please try again.', 'danger')
     return render_template('login.html')
+
 
 
 # Logout page
@@ -164,6 +166,12 @@ def reset_password(token):
         flash('Your password has been reset.')
         return redirect(url_for('login'))
     return render_template('reset_password.html', token=token)
+
+
+@app.route('/add_recipe', methods=['GET', 'POST'])
+@login_required
+def add_recipe():
+    return Dashboard.add_recipe()
 
 
 if __name__ == '__main__':

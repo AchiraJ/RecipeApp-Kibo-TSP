@@ -2,7 +2,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from database import db, app
 from itsdangerous import URLSafeTimedSerializer
-
+from datetime import datetime
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -42,3 +42,33 @@ class User(db.Model, UserMixin):
         except:
             return None
         return User.query.get(user_id)
+    
+class Recipe(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    image = db.Column(db.LargeBinary, nullable=False)
+    description = db.Column(db.String(500), nullable=False)
+    ingredients = db.Column(db.String(1000), nullable=False)
+    instructions = db.Column(db.String(1000), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+    category = db.relationship('Category', backref=db.backref('recipes', lazy=True))
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    author = db.relationship('User', backref=db.backref('recipes', lazy=True))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    trending = db.Column(db.Boolean, default=False)
+    featured = db.Column(db.Boolean, default=False)
+
+    def __init__(self, name, image, description, ingredients, instructions, category, tags, author_id):
+        self.name = name
+        self.image = image
+        self.description = description
+        self.ingredients = ingredients
+        self.instructions = instructions
+        self.category = category
+        self.tags = tags
+        self.author_id = author_id
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False, unique=True)
