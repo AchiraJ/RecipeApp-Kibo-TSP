@@ -4,6 +4,7 @@ from models import *
 from dashboard import *
 from database import db, app
 from flask_mail import Message, Mail
+from recipes import populate_data
 
 # app configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users_data.db'
@@ -23,10 +24,11 @@ login_manager.login_view = 'login'
 
 
 # create the user table and user reset tables
-db.init_app(app)
-with app.app_context():
-    db.create_all()
 
+with app.app_context():
+    db.init_app(app)
+    db.create_all()
+    # populate_data(db)
 
 def send_password_reset_email(user, token):
     msg = Message('Password Reset Request',
@@ -52,6 +54,10 @@ def send_password_reset_email(user, token):
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/')
+def home():
+    return render_template('dashboard.html')
 
 
 # Signup page
@@ -173,6 +179,15 @@ def reset_password(token):
 def add_recipe():
     return Dashboard.add_recipe()
 
+@app.route('/dashboard', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        category = request.form['meal_type']
+        recipes = Recipes.query.filter_by(category=category).all()
+        return render_template('dashboard.html', recipes=recipes, category=category, user=current_user)
+    else:
+        return render_template('dashboard.html', user=current_user)
 
 if __name__ == '__main__':
+        
     app.run(debug=True)
