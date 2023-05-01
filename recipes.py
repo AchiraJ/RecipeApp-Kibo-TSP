@@ -8,7 +8,11 @@ def populate_data(db):
     breakfast_recipe = Recipes(name ='Rice porridge with bread', category = 'Breakfast', 
                                ingredients = '1 cup rice, 5 cups water, salt (to taste), 1 pinch nutmeg, sugar/honey, evaporated milk', 
                                instructions = '1. Wash the rice until the water is clear, then drain. 2. Place the rice in a bowl and add 5 cups of water. 3. Cook the rice until tender for about 15 minutes. Use more water, if necessary to obtain a soft and sticky rice. 4. Add a pinch of salt. 5. Using the flat side of a wooden spoon, crush the rice until it is soft and flattens. 6. Add more water to soften to the desired thickness and consistency. 7. Serve the hot rice water with a pinch of nutmeg, evaporated milk, sugar/honey, and add toasted nuts, coconut flakes or other ingredients of your choice')
-    
+    breakfast_recipe = Recipes (name = 'Akara and pap', category = 'Breakfast', 
+                                ingredients = '2 cups of beans, 1/2 small onions, 1 scotch bonnet, salt, vegetable oil', 
+                                instructions = '1. Pick through the beans. 2. Wash and remove the beans coat by hand, using a blender or a food processor. 3. Grind beans to a very smooth paste using a blender or commercial mill, adding just enought water to et the blender blades moving. 4. Pour beans into a bowl and with a wooden spoon, stir vigorously until light, fluffy and doubled in size. You can also use a mortar and pestle, an electric whisk or food processor. This is considered a very important step. 5. Very finely chop onions and scotch bonnet adn set aside. 6. Place a frying pan over medium heat and add enough vegetable oil for deep frying. 7. Line a plate with kitchen napkins and set aside. 8. Add oni0ons, pepper and some salt to your beans paste, stir very well and if you can, taste a tiny bit for salt content. 9. When the oil is hot, use a tablespoon or your hand and spoon your batter into the hot oil. 10. Fry on one side then flip your Akara to fy the other side. 11. Drain into the lined plate. 12. Serve your akara with pap or semolina')
+                               
+
     lunch_recipe = Recipes(name='BLT Sandwich', category='Lunch',
                           ingredients='bacon, lettuce, tomato, mayonnaise, bread',
                           instructions='1. Fry the bacon. 2. Toast the bread. 3. Assemble the sandwich.')
