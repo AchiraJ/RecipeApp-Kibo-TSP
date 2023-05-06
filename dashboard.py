@@ -4,7 +4,7 @@ from flask import request, render_template, redirect, url_for, flash
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
 from datetime import datetime
-from PIL import Image
+
 import os
 
 
