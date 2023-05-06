@@ -28,7 +28,7 @@ login_manager.login_view = 'login'
 with app.app_context():
     db.init_app(app)
     db.create_all()
-    # populate_data(db)
+    populate_data(db)
 
 def send_password_reset_email(user, token):
     msg = Message('Password Reset Request',
