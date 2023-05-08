@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Welcome to My App</title>
-  </head>
+
+  {%block}
   <body>
     <h1>Welcome to My App</h1>
     <p>This is a web app that requires authentication to access its contents.</p>
@@ -12,4 +9,5 @@
       <li><a href="{{ url_for('login') }}">Log In</a></li>
     </ul>
   </body>
-</html>
+  {%endblock%}
+  

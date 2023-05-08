@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center my-4">Welcome {{ user.first_name }}!</h1>
+    <form class="form-inline justify-content-center mb-4" action="{{ url_for('dashboard') }}">
+        <div class="form-group">
+            <input type="text" class="form-control mr-2" name="search_query" placeholder="Search" value="{{ request.args.get('search_query', '') }}">
+           
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    <div class="row">
+        {% for recipe in recipes %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/' + recipe.image) }}" class="card-img-top" alt="{{ recipe.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipe.title }}</h5>
+                        <p class="card-text">{{ recipe.description }}</p>
+                        <a href="{{ url_for('recipe_detail', id=recipe.id) }}" class="btn btn-primary">View Recipe</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
