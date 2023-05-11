@@ -4,7 +4,7 @@ from models import *
 from dashboard import *
 from database import db, app
 from flask_mail import Message, Mail
-from recipes import populate_data
+from recipes import *
 
 # app configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users_data.db'
@@ -28,7 +28,9 @@ login_manager.login_view = 'login'
 with app.app_context():
     db.init_app(app)
     db.create_all()
-    populate_data(db)
+    clear_database()
+    # populate_data(db)
+
 
 def send_password_reset_email(user, token):
     msg = Message('Password Reset Request',
@@ -174,19 +176,20 @@ def reset_password(token):
     return render_template('reset_password.html', token=token)
 
 
-@app.route('/add_recipe', methods=['GET', 'POST'])
+@app.route('/add_recipe2', methods=['GET', 'POST'])
 @login_required
-def add_recipe():
-    return Dashboard.add_recipe()
+def add_recipe2():
+    return Dashboard.add_recipe2()
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
-        category = request.form['meal_type']
-        recipes = Recipes.query.filter_by(category=category).all()
-        return render_template('dashboard.html', recipes=recipes, category=category, user=current_user)
+        search_string = request.form['search']
+        recipes = Recipes.query.filter(Recipes.title.ilike(f'%{search_string}%')).all()
+        return render_template('dashboard.html', recipes=recipes, search_string=search_string, user=current_user)
     else:
         return render_template('dashboard.html', user=current_user)
+
 
 if __name__ == '__main__':
         

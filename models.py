@@ -44,7 +44,7 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
     
 class Recipes(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
     category = db.Column(db.String(100), nullable=False)
     ingredients = db.Column(db.String(1000), nullable=False)

@@ -12,7 +12,7 @@ class Dashboard:
     @staticmethod
     @login_required
 
-    def add_recipe():
+    def add_recipe2():
         if request.method == 'POST':
                 # create the recipe object
                 recipe = Recipes(
@@ -27,6 +27,6 @@ class Dashboard:
                 flash('Recipe added successfully!', 'success')
                 return redirect(url_for('dashboard'))
         
-        return render_template('add_recipe.html')
+        return render_template('add_recipe2.html')
 
 

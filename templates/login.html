@@ -1,23 +1,74 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="static/global.css" />
+    <link rel="stylesheet" href="static/login.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap"
+    />
+  </head>
+  <body>
+    <div class="login">
+      <form method="POST" action="{{ url_for('login') }}">
+        <div class="login-child"></div>
+        <div class="or">or</div>
+        <button class="log-in-wrapper">
+          <b class="log-in">LOG IN </b>
+        </button>
+        <button class="login-inner">
+          <div class="rectangle-parent">
+            <div class="group-child"></div>
+            <img class="aaple-1-icon" alt="" src="static/public/aaple-1@2x.png" />
 
-{% block content %}
-<h2>Login</h2>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class="flashes">
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-<form method="POST" action="{{ url_for('login') }}">
-  <label for="username">Username:</label>
-  <input type="text" name="username" required>
-  <label for="password">Password:</label>
-  <input type="password" name="password" required>
-  <input type="submit" value="Login">
-</form>
-<a href="{{ url_for('forgot_password') }}" class="btn btn-link">Forgot Password?</a>
+            <div class="log-in-with">Log in with Apple</div>
+          </div>
+        </button>
+        <button class="group-button">
+          <div class="rectangle-group">
+            <div class="group-item"></div>
+            <div class="log-in-with1">Log in with Facebook</div>
+            <img class="fb-1-icon" alt="" src="static/public/fb-1@2x.png" />
+          </div>
+        </button>
+        <button>
+          <div class="group-div">
+              <a class="google-1-parent">
+              <img class="google-1-icon" alt="" src="static/public/google-1@2x.png" />
 
-{% endblock %}
+              <div class="log-in-with2">Log in with Google</div>
+              </a>
+          </div>
+          </button>
+        <img class="ra-1-icon" alt="" src="static/public/ra-1@2x.png" />
+
+        <div class="rectangle-container">
+          <input class="group-inner" type="text" id="username" name="username" />
+
+          <b class="username">Username</b>
+        </div>
+        <div class="group-parent">
+          <div class="rectangle-frame">
+            <input class="group-inner" type="password" id="password" name="password" />
+          </div>
+          <b class="password">Password</b>
+        </div>
+            <div class="forgot-password-link">
+            <a href="forgot_password.html">Forgot password?</a>
+            </div>
+        <button type="submit" class="login-button">Login</button>
+      </form>
+      <div class="about-group">
+        <div class="about1">About</div>
+        <div class="about1">
+          <p class="contact3">Contact

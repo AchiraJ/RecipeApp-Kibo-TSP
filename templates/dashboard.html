@@ -1,4 +1,3 @@
-{% extends 'base.html' %}
 
 {% block content %}
   <h2>Welcome, {{ user.username }}!</h2>
@@ -6,15 +5,9 @@
 
   <p>Use the search bar below to find recipes by meal type:</p>
   <form method="post" action="{{ url_for('search') }}">
-      <label for="meal_type">Meal Type:</label>
-      <select name="meal_type" id="meal_type">
-          <option value="Breakfast" {% if category == 'Breakfast' %}selected{% endif %}>Breakfast</option>
-          <option value="Lunch" {% if category == 'Lunch' %}selected{% endif %}>Lunch</option>
-          <option value="Dinner" {% if category == 'Dinner' %}selected{% endif %}>Dinner</option>
-          <option value="Dessert" {% if category == 'Dessert' %}selected{% endif %}>Dessert</option>
-      </select>
-      <button type="submit">Search</button>
-  </form>
+    <input type="text" name="search_string" id="search_string" value="{{ search_string }}">
+    <button type="submit">Search</button>
+ </form>
 
   {% if recipes %}
   <h2>Search Results for {{ category }}</h2>
@@ -35,7 +28,7 @@
 {% endif %}
 
 
-  <a href="{{ url_for('add_recipe') }}">Add Recipe</a>
+  <a href="{{ url_for('add_recipe2') }}">Add Recipe</a>
   <a href="{{ url_for('logout') }}">Logout</a>
 
 {% endblock %}
