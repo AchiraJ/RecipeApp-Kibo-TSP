@@ -1,9 +1,9 @@
 from models import Recipes
 from app import db
 
-def clear_database():
-    db.session.query(Recipes).delete()
-    db.session.commit()
+# def clear_database():
+#     db.session.query(Recipes).delete()
+#     db.session.commit()
 
 def add_recipe(db, name, category, ingredients, instructions):
     # Check if recipe already exists in database

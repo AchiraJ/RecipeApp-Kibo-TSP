@@ -28,8 +28,8 @@ login_manager.login_view = 'login'
 with app.app_context():
     db.init_app(app)
     db.create_all()
-    clear_database()
-    # populate_data(db)
+    # clear_database()
+    populate_data(db)
 
 
 def send_password_reset_email(user, token):
