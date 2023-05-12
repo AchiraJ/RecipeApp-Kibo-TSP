@@ -52,12 +52,12 @@ def send_password_reset_email(user, token):
 
 # landing page
 @app.route('/')
-def base_page():
-    return render_template('base.html')
+def index():
+    return render_template('index.html')
 
-@app.route('/home')
+@app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('dashboard.html')
 
 
 # Signup page

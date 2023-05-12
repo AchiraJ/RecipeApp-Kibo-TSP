@@ -1,1 +1,41 @@
 {% extends 'base.html' %}
+
+{% block content %}
+  <h2>Welcome, {{ user.username }}!</h2>
+  <p>You are logged in.</p>
+
+  <p>Use the search bar below to find recipes by meal type:</p>
+  <form method="post" action="{{ url_for('search') }}">
+      <label for="meal_type">Meal Type:</label>
+      <select name="meal_type" id="meal_type">
+          <option value="Breakfast" {% if category == 'Breakfast' %}selected{% endif %}>Breakfast</option>
+          <option value="Lunch" {% if category == 'Lunch' %}selected{% endif %}>Lunch</option>
+          <option value="Dinner" {% if category == 'Dinner' %}selected{% endif %}>Dinner</option>
+          <option value="Dessert" {% if category == 'Dessert' %}selected{% endif %}>Dessert</option>
+      </select>
+      <button type="submit">Search</button>
+  </form>
+
+  {% if recipes %}
+  <h2>Search Results for {{ category }}</h2>
+  {% for recipe in recipes %}
+    <div class="recipe">
+      <h2>{{ recipe.name }}</h2>
+      <h3>{{ recipe.category }}</h3>
+      <ul>
+        {% for ingredient in recipe.ingredients %}
+            {{ ingredient }}
+        {% endfor %}
+      </ul>
+      <p>{{ recipe.instructions }}</p>
+    </div>
+  {% endfor %}
+{% else %}
+  <p>No recipes found for {{ category }}.</p>
+{% endif %}
+
+
+  <a href="{{ url_for('add_recipe') }}">Add Recipe</a>
+  <a href="{{ url_for('logout') }}">Logout</a>
+
+{% endblock %}

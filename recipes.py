@@ -1,20 +1,7 @@
 from models import Recipes
-from sqlalchemy import func
-
-def delete_duplicates(db):
-    # get all recipe names that have duplicates
-    dup_names = db.session.query(Recipes.name).group_by(Recipes.name).having(func.count() > 1).all()
-    
-    # delete all recipes with duplicate names
-    for name in dup_names:
-        duplicates = Recipes.query.filter(Recipes.name == name[0]).all()
-        for recipe in duplicates:
-            db.session.delete(recipe)
-            db.session.commit()
-
 
 def populate_data(db):
-    # get all existing recipes
+    # create sample recipes
     breakfast_recipe = Recipes(name='Eggs Benedict', category='Breakfast',
                               ingredients='eggs, English muffins, Canadian bacon, hollandaise sauce',
                               instructions='1. Toast the muffins. 2. Fry the bacon. 3. Poach the eggs. 4. Make the sauce. 5. Assemble the ingredients.')
