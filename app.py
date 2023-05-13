@@ -181,14 +181,28 @@ def reset_password(token):
 def add_recipe2():
     return Dashboard.add_recipe2()
 
-@app.route('/dashboard', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
-    if request.method == 'POST':
-        search_string = request.form['search']
-        recipes = Recipes.query.filter(Recipes.title.ilike(f'%{search_string}%')).all()
-        return render_template('dashboard.html', recipes=recipes, search_string=search_string, user=current_user)
-    else:
-        return render_template('dashboard.html', user=current_user)
+    query = request.args.get('query', '')
+
+    results = Recipes.query.filter(
+        (Recipes.name.ilike(f'%{query}%')) |
+        (Recipes.category.ilike(f'%{query}%')) |
+        (Recipes.ingredients.ilike(f'%{query}%')) |
+        (Recipes.instructions.ilike(f'%{query}%'))
+    ).all()
+
+    return render_template('search_results.html', results=results, query=query)
+
+
+
+# def search():
+#     if request.method == 'POST':
+#         search_string = request.form['search']
+#         recipes = Recipes.query.filter(Recipes.title.ilike(f'%{search_string}%')).all()
+#         return render_template('dashboard.html', recipes=recipes, search_string=search_string, user=current_user)
+#     else:
+#         return render_template('dashboard.html', user=current_user)
 
 
 if __name__ == '__main__':
