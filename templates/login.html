@@ -5,6 +5,7 @@
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <link rel="stylesheet" href="static/global.css" />
     <link rel="stylesheet" href="static/login.css" />
+    <link rel="stylesheet" href="static/signup.css" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
@@ -17,56 +18,40 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
   </head>
   <body>
     <div class="login">
       <form method="POST" action="{{ url_for('login') }}">
-        <div class="login-child"></div>
-        <div class="or">or</div>
-        <button class="log-in-wrapper">
-          <b class="log-in">LOG IN </b>
-        </button>
-        <button class="login-inner">
-          <div class="rectangle-parent">
-            <div class="group-child"></div>
-            <img class="aaple-1-icon" alt="" src="static/public/aaple-1@2x.png" />
-
-            <div class="log-in-with">Log in with Apple</div>
+        
+        <div class="box">
+          <label for="userName" class="fl fontLabel"> User Name: </label>
+          <div class="fl iconBox"><i class="fa fa-user" aria-hidden="true"></i></div>
+          <div class="fr">
+              <input type="text" required name="username" maxlength="10" placeholder="User Name" class="textBox">
           </div>
-        </button>
-        <button class="group-button">
-          <div class="rectangle-group">
-            <div class="group-item"></div>
-            <div class="log-in-with1">Log in with Facebook</div>
-            <img class="fb-1-icon" alt="" src="static/public/fb-1@2x.png" />
-          </div>
-        </button>
-        <button>
-          <div class="group-div">
-              <a class="google-1-parent">
-              <img class="google-1-icon" alt="" src="static/public/google-1@2x.png" />
-
-              <div class="log-in-with2">Log in with Google</div>
-              </a>
-          </div>
-          </button>
-        <img class="ra-1-icon" alt="" src="static/public/ra-1@2x.png" />
-
-        <div class="rectangle-container">
-          <input class="group-inner" type="text" id="username" name="username" />
-
-          <b class="username">Username</b>
+          <div class="clr"></div>
         </div>
-        <div class="group-parent">
-          <div class="rectangle-frame">
-            <input class="group-inner" type="password" id="password" name="password" />
-          </div>
-          <b class="password">Password</b>
+
+        <div class="box">
+          <label for="password" class="fl fontLabel"> Password </label>
+    			<div class="fl iconBox"><i class="fa fa-key" aria-hidden="true"></i></div>
+    			<div class="fr">
+    					<input type="Password" required name="password" placeholder="Password" class="textBox">
+    			</div>
+    			<div class="clr"></div>
+    		</div>
+
+        <br>
+        <div class="box">
+          <button type="submit" class="login-button">Login</button>
         </div>
-            <div class="forgot-password-link">
-            <a href="forgot_password.html">Forgot password?</a>
-            </div>
-        <button type="submit" class="login-button">Login</button>
+        <br>
+        <div class="forgot-password-link">
+          <a href="{{url_for('forgot_password')}} ">Forgot password?</a>
+        </div>
       </form>
       <div class="about-group">
         <div class="about1">About</div>
