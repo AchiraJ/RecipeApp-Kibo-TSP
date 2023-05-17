@@ -57,9 +57,10 @@ def send_password_reset_email(user, token):
 def index():
     return render_template('index.html')
 
-@app.route('/')
-def home():
-    return render_template('dashboard.html')
+# @app.route('/')
+# @login_required
+# def home():
+#     return render_template('dashboard.html')
 
 
 # Signup page
@@ -132,14 +133,21 @@ def logout():
 
 
 # Dashboard page
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    return render_template('dashboard.html', user=current_user)
+    query = request.args.get('query', '')
+
+    results = Recipes.query.filter(
+        (Recipes.name.ilike(f'%{query}%')) |
+        (Recipes.category.ilike(f'%{query}%')) |
+        (Recipes.ingredients.ilike(f'%{query}%')) |
+        (Recipes.instructions.ilike(f'%{query}%'))
+    ).all()
+    return render_template('dashboard.html', user=current_user, results= results)
+
 
 # forgot password page
-
-
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if current_user.is_authenticated:
