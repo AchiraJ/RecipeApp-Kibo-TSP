@@ -17,9 +17,9 @@ class Dashboard:
                 # create the recipe object
                 recipe = Recipes(
                     name=request.form['name'],
+                    category=request.form['category'],
                     ingredients=request.form['ingredients'],
                     instructions=request.form['instructions'],
-                    category=request.form['category'],
                 )
                 db.session.add(recipe)
                 db.session.commit()

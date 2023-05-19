@@ -184,11 +184,6 @@ def reset_password(token):
     return render_template('reset_password.html', token=token)
 
 
-@app.route('/add_recipe2', methods=['GET', 'POST'])
-@login_required
-def add_recipe2():
-    return Dashboard.add_recipe2()
-
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     query = request.args.get('query', '')
@@ -202,15 +197,35 @@ def search():
 
     return render_template('search_results.html', results=results, query=query)
 
+@app.route('/add_recipe2', methods=['GET','POST'])
+@login_required
+def add_recipe2():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        category = request.form.get('category')
+        ingredients = request.form.get('ingredients')
+        instructions = request.form.get('instructions')
+        
+        # Check if recipe already exists in the database
+        recipe = Recipes.query.filter_by(name=name).first()
+        if recipe:
+            # Delete existing recipe and related data from the database
+            db.session.delete(recipe)
+        
+        # Delete all related data that matches the existing recipe name
+        Recipes.query.filter_by(name=name).delete()
+        
+        # Add new recipe to the database
+        new_recipe = Recipes(name=name, category=category, ingredients=ingredients, instructions=instructions)
+        db.session.add(new_recipe)
+        db.session.commit()
+        
+        return redirect(url_for('dashboard'))
+
+    # Handle GET request (render the add_recipe2.html template)
+    return render_template('add_recipe2.html')
 
 
-# def search():
-#     if request.method == 'POST':
-#         search_string = request.form['search']
-#         recipes = Recipes.query.filter(Recipes.title.ilike(f'%{search_string}%')).all()
-#         return render_template('dashboard.html', recipes=recipes, search_string=search_string, user=current_user)
-#     else:
-#         return render_template('dashboard.html', user=current_user)
 
 
 if __name__ == '__main__':
