@@ -139,7 +139,7 @@ def logout():
 def dashboard():
     # query = request.args.get('query', '')
 
-    categories = ['Breakfast', 'Lunch', 'Dinner']
+    categories = ['Breakfast', 'Lunch', 'Dinner', 'Dessert']
     results = []
     for category in categories:
         recipes = Recipes.query.filter_by(category=category).all()
