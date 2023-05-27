@@ -94,22 +94,31 @@
       </p>
     </h6>
 
-    <h1>Available recipes</h1>
-    <ul>
-      {% for recipe in results %}
-        <ul>
-            <li>
-                <h2>{{ recipe.name }}</h2>
-                <p><strong>Category:</strong> {{ recipe.category }}</p>
-                <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
-                <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
-            </li>
-        </ul>
-      {% endfor %}
-    </ul>
-    {% if not results %}
-      <p>No results found.</p>
-    {% endif %}
+    <h2>Available recipes</h2>
+{% for recipe in results %}
+  <ul>
+    <li>
+      <h2><a href="#" onclick="toggleContent('{{ recipe.id }}')">{{ recipe.name }}</a></h2>
+      <div id="recipe-{{ recipe.id }}" style="display: none;">
+        <p><strong>Category:</strong> {{ recipe.category }}</p>
+        <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+        <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+      </div>
+    </li>
+  </ul>
+{% endfor %}
+
+<script>
+  function toggleContent(recipeId) {
+    const contentDiv = document.getElementById('recipe-' + recipeId);
+    if (contentDiv.style.display === 'none') {
+      contentDiv.style.display = 'block';
+    } else {
+      contentDiv.style.display = 'none';
+    }
+  }
+</script>
+
     <div class="to-save-and-container">
       <p class="discover-a-plethora">&nbsp;</p> 
     </div>

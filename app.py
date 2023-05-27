@@ -5,6 +5,7 @@ from dashboard import *
 from database import db, app
 from flask_mail import Message, Mail
 from recipes import *
+import random
 
 # app configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users_data.db'
@@ -136,16 +137,16 @@ def logout():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    query = request.args.get('query', '')
+    # query = request.args.get('query', '')
 
-    results = Recipes.query.filter(
-        (Recipes.name.ilike(f'%{query}%')) |
-        (Recipes.category.ilike(f'%{query}%')) |
-        (Recipes.ingredients.ilike(f'%{query}%')) |
-        (Recipes.instructions.ilike(f'%{query}%'))
-    ).all()
-    return render_template('dashboard.html', user=current_user, results= results)
+    categories = ['Breakfast', 'Lunch', 'Dinner']
+    results = []
+    for category in categories:
+        recipes = Recipes.query.filter_by(category=category).all()
+        random_recipes = random.choices(recipes, k=min(3, len(recipes)))
+        results.extend(random_recipes)
 
+    return render_template('dashboard.html', user = current_user, results=results)
 
 # forgot password page
 @app.route('/forgot_password', methods=['GET', 'POST'])
