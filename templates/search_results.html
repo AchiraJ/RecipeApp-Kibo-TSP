@@ -70,10 +70,12 @@
     <ul>
       {% for recipe in results %}
         <li>
+          <img src="{{ url_for('static', filename='recipe_images/' + recipe.image_name) }}" alt="Recipe Image">
           <h2>{{ recipe.name }}</h2>
           <p><strong>Category:</strong> {{ recipe.category }}</p>
           <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
           <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+          
         </li>
       {% endfor %}
     </ul>

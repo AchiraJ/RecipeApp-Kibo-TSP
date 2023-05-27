@@ -37,13 +37,16 @@
             </li>
 
             <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('add_recipe2') }}">Add recipe</a>
+            </li>
+
+            <li class="nav-item">
               <a class="nav-link" href="#">User profile</a>
             </li>
-            
-            
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Signup/Login
+                Account
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{{ url_for('signup') }}">Signup</a></li>

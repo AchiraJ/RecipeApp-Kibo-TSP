@@ -29,4 +29,3 @@ class Dashboard:
         
         return render_template('add_recipe2.html')
 
-

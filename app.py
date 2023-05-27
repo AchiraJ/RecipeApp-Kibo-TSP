@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash , Flask
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from models import *
 from dashboard import *
@@ -164,9 +164,8 @@ def forgot_password():
             flash('No user found with that email address.')
             return redirect(url_for('forgot_password'))
     return render_template('forgot_password.html')
+
 # reset password page
-
-
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
@@ -183,7 +182,7 @@ def reset_password(token):
         return redirect(url_for('login'))
     return render_template('reset_password.html', token=token)
 
-
+# search
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     query = request.args.get('query', '')
@@ -191,17 +190,20 @@ def search():
     results = Recipes.query.filter(
         (Recipes.name.ilike(f'%{query}%')) |
         (Recipes.category.ilike(f'%{query}%')) |
+        (Recipes.image_name.ilike(f'%{query}%')) |
         (Recipes.ingredients.ilike(f'%{query}%')) |
         (Recipes.instructions.ilike(f'%{query}%'))
     ).all()
 
     return render_template('search_results.html', results=results, query=query)
 
+# Add recipe
 @app.route('/add_recipe2', methods=['GET','POST'])
 @login_required
 def add_recipe2():
     if request.method == 'POST':
         name = request.form.get('name')
+        image_name = request.form.get('image_name')
         category = request.form.get('category')
         ingredients = request.form.get('ingredients')
         instructions = request.form.get('instructions')
@@ -216,7 +218,7 @@ def add_recipe2():
         Recipes.query.filter_by(name=name).delete()
         
         # Add new recipe to the database
-        new_recipe = Recipes(name=name, category=category, ingredients=ingredients, instructions=instructions)
+        new_recipe = Recipes(name=name, image_name = image_name , category=category, ingredients=ingredients, instructions=instructions)
         db.session.add(new_recipe)
         db.session.commit()
         
@@ -226,8 +228,7 @@ def add_recipe2():
     return render_template('add_recipe2.html')
 
 
-
-
 if __name__ == '__main__':
         
     app.run(debug=True)
+
