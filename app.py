@@ -137,16 +137,28 @@ def logout():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    # query = request.args.get('query', '')
-
     categories = ['Breakfast', 'Lunch', 'Dinner', 'Dessert']
     results = []
+    selected_recipes = set()  # To store the selected recipe IDs
+    recipes_per_category = 3
+
     for category in categories:
         recipes = Recipes.query.filter_by(category=category).all()
-        random_recipes = random.choices(recipes, k=min(3, len(recipes)))
-        results.extend(random_recipes)
 
-    return render_template('dashboard.html', user = current_user, results=results)
+        # Exclude previously selected recipes from the same category
+        available_recipes = [recipe for recipe in recipes if recipe.id not in selected_recipes and recipe.category == category]
+
+        if len(available_recipes) > 0:
+            # Select up to 3 random recipes from the available recipes
+            random_recipes = random.sample(available_recipes, min(recipes_per_category, len(available_recipes)))
+            selected_recipes.update(recipe.id for recipe in random_recipes)
+            results.extend(random_recipes)
+
+        if len(results) == 9:
+            break
+
+    return render_template('dashboard.html', user=current_user, results=results)
+
 
 # forgot password page
 @app.route('/forgot_password', methods=['GET', 'POST'])
@@ -227,6 +239,14 @@ def add_recipe2():
 
     # Handle GET request (render the add_recipe2.html template)
     return render_template('add_recipe2.html')
+
+# List recipe with details on click
+
+@app.route('/recipe', methods=['GET', 'POST'])
+def recipe():
+    recipe_id = int(request.args.get('id'))
+    recipe = Recipes.query.get(recipe_id)
+    return render_template('recipe.html', recipe=recipe)
 
 
 if __name__ == '__main__':

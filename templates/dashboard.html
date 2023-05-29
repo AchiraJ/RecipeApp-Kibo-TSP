@@ -13,7 +13,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">
           <img src="static/public/ra-21@2x.png" alt="" width="60" height="48" class="d-inline-block align-text-top">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,35 +95,20 @@
     </h6>
 
     <h2>Available recipes</h2>
-{% for recipe in results %}
-  <ul>
-    <li>
-      <h2><a href="#" onclick="toggleContent('{{ recipe.id }}')">{{ recipe.name }}</a></h2>
-      <div id="recipe-{{ recipe.id }}" style="display: none;">
-        <p><strong>Category:</strong> {{ recipe.category }}</p>
-        <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
-        <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
-      </div>
-    </li>
-  </ul>
-{% endfor %}
-
-<script>
-  function toggleContent(recipeId) {
-    const contentDiv = document.getElementById('recipe-' + recipeId);
-    if (contentDiv.style.display === 'none') {
-      contentDiv.style.display = 'block';
-    } else {
-      contentDiv.style.display = 'none';
-    }
-  }
-</script>
-
+    
+    <section class="layout">
+      {% for recipe in results %}
+        <div>
+          <h2><a href="recipe?id={{ recipe.id }}">{{ recipe.name }}</a></h2>
+        </div>
+      {% endfor %}
+    </section>
+    
+    
     <div class="to-save-and-container">
       <p class="discover-a-plethora">&nbsp;</p> 
     </div>
-
-
+    
     <div class="frame-parent">
       <button class="view-recipe-wrapper" autofocus>
         <div class="view-recipe">view recipe</div>
@@ -132,7 +117,30 @@
         <div class="view-recipe">share recipe</div>
       </button>
     </div>
-  </div>
+    
+    <style>
+    .layout {
+      width: 1366px;
+      height: 768px;
+    
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    </style>
+    
+    <!-- <script>
+      function toggleContent(recipeId) {
+        const contentDiv = document.getElementById('recipe-' + recipeId);
+        if (contentDiv.style.display === 'none') {
+          contentDiv.style.display = 'block';
+        } else {
+          contentDiv.style.display = 'none';
+        }
+      }
+    </script> -->
+    
 
     <!-- Optional JavaScript; choose one of the two! -->
 
