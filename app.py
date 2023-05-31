@@ -6,6 +6,8 @@ from database import db, app
 from flask_mail import Message, Mail
 from recipes import *
 import random
+from sqlalchemy import func
+
 
 # app configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users_data.db'
@@ -247,6 +249,25 @@ def recipe():
     recipe_id = int(request.args.get('id'))
     recipe = Recipes.query.get(recipe_id)
     return render_template('recipe.html', recipe=recipe)
+
+# Featured recipes
+
+@app.route('/featured-recipes', methods=['GET', 'POST'])
+def featured_recipe():
+    recipes = Recipes.query.order_by(func.random()).limit(4).all()
+    return render_template('featured_recipes.html', recipes=recipes)
+
+# View recipe route
+@app.route('/view_recipe/<recipe_id>')
+@login_required
+def view_recipe(recipe_id):
+    recipe = Recipes.query.get(recipe_id)
+    if recipe:
+        return render_template('view_recipe.html', recipe=recipe)
+    else:
+        flash('Recipe not found.', 'danger')
+        return redirect(url_for('dashboard'))
+
 
 
 if __name__ == '__main__':
