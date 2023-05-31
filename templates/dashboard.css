@@ -1,0 +1,159 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin: 0;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"] {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  button[type="submit"] {
+    padding: 5px 10px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .recipe {
+    margin-bottom: 20px;
+  }
+  
+  .recipe h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .recipe h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .recipe ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .recipe ul li {
+    margin-bottom: 5px;
+  }
+  
+  a {
+    display: inline-block;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #555;
+  }
+  
+  /* Custom Styles */
+  .add-recipe-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .add-recipe-page h2 {
+    font-size: 28px;
+  }
+  
+  .about-group {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .about-group > * {
+    margin-right: 10px;
+  }
+  
+  .recipe-app-terms1 {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  
+  .rectangle-parent {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .frame-item,
+  .frame-inner,
+  .rectangle-input,
+  .frame-child1,
+  .frame-child2,
+  .frame-child3 {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .instructions-wrapper {
+    margin-bottom: 10px;
+  }
+  
+  .submit-a-recipe {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .recipe-title,
+  .recipe-image,
+  .photos-should-be,
+  .ingredient-list,
+  .add-category,
+  .add-tags {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .rectangle-textarea {
+    height: 100px;
+  }
+  
+  .featured-recipe-parent {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .featured-recipe-parent > * {
+    margin-right: 10px;
+  }
+  
+  .ellipse-parent {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .ellipse-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .miriam {
+    font-weight: bold;
+  }
+  
