@@ -22,7 +22,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
+              <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Trending recipes</a>
@@ -33,7 +33,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">Recipe categories</a>
+              <a class="nav-link" href="{{ url_for('search_category') }}">Recipe categories</a>
             </li>
 
             <li class="nav-item">
@@ -92,29 +92,35 @@
         new favorite African dish.
       </p>
     </h6>
-    <div class="to-save-and-container">
-      <p class="discover-a-plethora">&nbsp;</p>
-      <p class="discover-a-plethora">
-        <span>To save and share content, </span>
-        <span><a href="{{ url_for('signup') }}" class="create-a-free">create a free account</a></span>
-        <span class="and-start-posting"> and start posting.</span>
-      </p>
-    </div>
-    <img class="homepage-item" alt="" src="static/public/frame-521@2x.png" />
 
-    <img class="frame-icon" alt="" src="static/public/frame-100@2x.png" />
+    <section class="layout">
+      {% for recipe in recipes %}
+        <div>
+          <a href="recipe?id={{ recipe.id }}">
+            <img src="{{ url_for('static', filename='recipe_images/' + recipe.image_name) }}" alt="Recipe Image">
+          </a>
 
-    <img class="homepage-child1" alt="" src="static/public/frame-101@2x.png" />
-
-    <div class="frame-parent">
-      <button class="view-recipe-wrapper" autofocus>
-        <div class="view-recipe">view recipe</div>
-      </button>
-      <button class="share-recipe-wrapper" autofocus>
-        <div class="view-recipe">share recipe</div>
-      </button>
-    </div>
-  </div>
+          <ul>
+            <p><a href="recipe?id={{ recipe.id }}">{{ recipe.name }}</a></p>
+          </ul>
+        </div>
+      {% endfor %}
+    </section>
+   
+        <span><a href="{{ url_for('signup') }}" class="create-a-free">Create a free account</a></span>
+        
+      <style>
+        .layout {
+          width: 1366px;
+          height: 768px;
+        
+          display: grid;
+          grid-template-rows: repeat(3, 1fr);
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
+        }
+        </style>
+    
 
     <!-- Optional JavaScript; choose one of the two! -->
 

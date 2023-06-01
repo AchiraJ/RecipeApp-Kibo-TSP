@@ -1,0 +1,41 @@
+<form id="searchForm" method="post" action="{{ url_for('search_category') }}">
+    <label for="meal_type">Meal Type:</label>
+    <select name="meal_type" id="meal_type">
+      <option value="Breakfast" {% if category == 'Breakfast' %}selected{% endif %}>Breakfast</option>
+      <option value="Lunch" {% if category == 'Lunch' %}selected{% endif %}>Lunch</option>
+      <option value="Dinner" {% if category == 'Dinner' %}selected{% endif %}>Dinner</option>
+      <option value="Dessert" {% if category == 'Dessert' %}selected{% endif %}>Dessert</option>
+    </select>
+  </form>
+  
+  <script>
+    document.getElementById("meal_type").addEventListener("change", function() {
+      document.getElementById("searchForm").submit();
+    });
+  </script>
+
+{% if recipes %}
+<h2>Search Results for {{ category }}</h2>
+{% for recipe in recipes %}
+  <li>
+  <img src="{{ url_for('static', filename='recipe_images/' + recipe.image_name) }}" alt="Recipe Image">
+  <h2>{{ recipe.name }}</h2>
+  <p><strong>Category:</strong> {{ recipe.category }}</p>
+  <p><strong>Ingredients:</strong></p>
+  <ul>
+    {% for ingredient in recipe.ingredients.split(', ') %}
+      <li>{{ ingredient }}</li>
+    {% endfor %}
+  </ul>
+  <p><strong>Instructions:</strong></p>
+  <ol>
+    {% for step in recipe.instructions.split('. ') %}
+      <li>{{ step }}</li>
+    {% endfor %}
+  </ol>
+  </li>
+{% endfor %}
+{% else %}
+<p>No recipes found for {{ category }}.</p>
+{% endif %}
+  

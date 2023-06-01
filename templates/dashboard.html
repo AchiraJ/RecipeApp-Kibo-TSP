@@ -73,50 +73,24 @@
       </div>
     </nav>
 
-    <div class="discover-a-plethora-container">
-        <h2>Welcome, {{ user.username }}!</h2>
-      <p class="discover-a-plethora">Discover a plethora</p>
-      <p class="discover-a-plethora">African dishes</p>
-    </div>
-    <div class="the-number-1">
-      The number #1 site for recipes on all African dishes
-    </div>
-    <div class="homepage-inner">
-      <div class="rectangle-wrapper">
-        <div class="frame-child"></div>
-      </div>
-    </div>
-    <h6 class="recipe-app-is-container" id="intro recipe app">
-      <p class="discover-a-plethora">
-        Recipe App is a recipe sharing site of African cuisine where food
-        lovers can post recipes from anywhere on the web. Use it to discover a
-        new favorite African dish.
-      </p>
-    </h6>
 
-    <h2>Available recipes</h2>
+    <h2>Healthy Recipes</h2>
     
     <section class="layout">
       {% for recipe in results %}
         <div>
-          <h2><a href="recipe?id={{ recipe.id }}">{{ recipe.name }}</a></h2>
+          <a href="recipe?id={{ recipe.id }}">
+            <img src="{{ url_for('static', filename='recipe_images/' + recipe.image_name) }}" alt="Recipe Image">
+          </a>
+
+          <ul>
+            <p><a href="recipe?id={{ recipe.id }}">{{ recipe.name }}</a></p>
+          </ul>
         </div>
       {% endfor %}
     </section>
     
     
-    <div class="to-save-and-container">
-      <p class="discover-a-plethora">&nbsp;</p> 
-    </div>
-    
-    <div class="frame-parent">
-      <button class="view-recipe-wrapper" autofocus>
-        <div class="view-recipe">view recipe</div>
-      </button>
-      <button class="share-recipe-wrapper" autofocus>
-        <div class="view-recipe">share recipe</div>
-      </button>
-    </div>
     
     <style>
     .layout {

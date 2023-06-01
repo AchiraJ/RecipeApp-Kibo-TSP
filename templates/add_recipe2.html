@@ -136,6 +136,17 @@
   <section class="layout">
     <div class="body">
       <h1>Add Recipe</h1>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flash-messages">
+            {% for message in messages %}
+              <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
       <form method="post" enctype="multipart/form-data" action="{{ url_for('add_recipe2') }}">
         <div class="form-group">
           <label for="name">Name:</label>
@@ -152,6 +163,10 @@
         <div class="form-group">
           <label for="instructions">Instructions:</label>
           <textarea class="form-control" id="instructions" name="instructions" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="image">Image:</label>
+          <input type="file" class="form-control-file" id="image" name="image_name">
         </div>
       
         <button type="submit" class="btn btn-primary">Submit</button>

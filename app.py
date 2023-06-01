@@ -5,7 +5,8 @@ from dashboard import *
 from database import db, app
 from flask_mail import Message, Mail
 from recipes import *
-import random
+import random, os
+from werkzeug.utils import secure_filename
 
 # app configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users_data.db'
@@ -23,6 +24,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+# Image upload configuration
+app.config['UPLOAD_FOLDER'] = 'static/recipe_images'
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
 # create the user table and user reset tables
 
@@ -53,16 +57,16 @@ def send_password_reset_email(user, token):
     mail.send(msg)
 
 
-# landing page
-@app.route('/')
-def index():
-    return render_template('index.html')
 
-# @app.route('/')
-# @login_required
-# def home():
-#     return render_template('dashboard.html')
+# Home page
+@app.route('/', methods=['GET'])
+def home():
+    category = 'Breakfast'  # Choose the desired category
+    recipes_per_category = 6  # Choose the number of recipes to display per category
 
+    recipes = Recipes.query.filter_by(category=category).limit(recipes_per_category).all()
+
+    return render_template('home.html', recipes=recipes)
 
 # Signup page
 @app.route('/signup', methods=['GET', 'POST'])
@@ -130,7 +134,7 @@ def login():
 def logout():
     logout_user()
     flash('You have been logged out successfully.')
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 
 # Dashboard page
@@ -200,15 +204,23 @@ def reset_password(token):
 def search():
     query = request.args.get('query', '')
 
-    results = Recipes.query.filter(
-        (Recipes.name.ilike(f'%{query}%')) |
-        (Recipes.category.ilike(f'%{query}%')) |
-        (Recipes.image_name.ilike(f'%{query}%')) |
-        (Recipes.ingredients.ilike(f'%{query}%')) |
-        (Recipes.instructions.ilike(f'%{query}%'))
-    ).all()
+    if query.strip() == '':
+        results = []
+    else:
+        results = Recipes.query.filter(
+            (Recipes.name.ilike(f'%{query}%')) |
+            (Recipes.category.ilike(f'%{query}%')) |
+            (Recipes.image_name.ilike(f'%{query}%')) |
+            (Recipes.ingredients.ilike(f'%{query}%')) |
+            (Recipes.instructions.ilike(f'%{query}%'))
+        ).all()
 
     return render_template('search_results.html', results=results, query=query)
+
+def valid_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+
 
 # Add recipe
 @app.route('/add_recipe2', methods=['GET','POST'])
@@ -229,6 +241,19 @@ def add_recipe2():
         
         # Delete all related data that matches the existing recipe name
         Recipes.query.filter_by(name=name).delete()
+
+        # Save the uploaded image
+        image = request.files.get('image_name')
+        
+        if image and valid_file(image.filename):
+            image_name = image.filename
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_name)
+            image.save(image_path)
+        else:
+            image_name = None
+            image_path = None
+            flash('Invalid file. Only PNG, JPG, JPEG, and GIF images are allowed.')
+        
         
         # Add new recipe to the database
         new_recipe = Recipes(name=name, image_name = image_name , category=category, ingredients=ingredients, instructions=instructions)
@@ -241,12 +266,21 @@ def add_recipe2():
     return render_template('add_recipe2.html')
 
 # List recipe with details on click
-
 @app.route('/recipe', methods=['GET', 'POST'])
 def recipe():
     recipe_id = int(request.args.get('id'))
     recipe = Recipes.query.get(recipe_id)
     return render_template('recipe.html', recipe=recipe)
+
+#Search by category
+@app.route('/category', methods=['GET', 'POST'])
+def search_category():
+    if request.method == 'POST':
+        category = request.form['meal_type']
+        recipes = Recipes.query.filter_by(category=category).all()
+        return render_template('search_category.html', recipes=recipes, category=category, user=current_user)
+    else:
+        return render_template('search_category.html', user=current_user)
 
 
 if __name__ == '__main__':
