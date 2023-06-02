@@ -143,7 +143,7 @@
 }
 .discover-a-plethora-container {
   position: absolute;
-  top: 206px;
+  top: 150px;
   left: calc(50% - 206px);
   font-size: var(--font-size-29xl);
   font-weight: 600;
@@ -153,8 +153,8 @@
 }
 .the-number-1 {
   position: absolute;
-  top: 327px;
-  left: calc(50% - 188px);
+  top: 299px;
+  left: calc(50% - 199px);
   font-weight: 500;
   font-family: var(--font-roboto);
   display: inline-block;
@@ -193,13 +193,13 @@
 .recipe-app-is-container {
   margin: 0;
   position: absolute;
-  width: 44.24%;
-  top: 779px;
-  left: 28.4%;
+  width: 40.24%;
+  top: 760px;
+  left: 40%;
   font-size: var(--font-size-mini);
   font-weight: 400;
   font-family: var(--font-roboto);
-  white-space: pre-wrap;
+  white-space: pre-line;
   display: inline-block;
 }
 .create-a-free {
@@ -213,7 +213,7 @@
   position: absolute;
   width: 33.19%;
   top: 873px;
-  left: 33.54%;
+  left: 40%;
   font-size: var(--font-size-mini);
   font-family: var(--font-roboto);
   display: inline-block;

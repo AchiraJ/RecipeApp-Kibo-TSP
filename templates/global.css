@@ -5,8 +5,8 @@ body {
 
 :root {
   /* fonts */
-  --font-roboto: Roboto;
   --font-inter: Inter;
+  --font-roboto: Roboto;
   --font-outfit: Outfit;
   --font-inherit: inherit;
 
@@ -16,9 +16,9 @@ body {
   --font-size-base: 16px;
   --font-size-29xl: 48px;
   --font-size-sm: 14px;
+  --font-size-xl: 20px;
   --font-size-13xl: 32px;
   --font-size-5xl: 24px;
-  --font-size-xl: 20px;
   --font-size-45xl: 64px;
   --font-size-17xl: 36px;
   --font-size-21xl: 40px;
@@ -27,30 +27,30 @@ body {
   /* Colors */
   --color-white: #fff;
   --color-black: #000;
+  --color-orangered: #f6510a;
   --color-royalblue: #286ff9;
   --color-brown: #bb3c3c;
-  --color-orangered: #f6510a;
-  --color-gainsboro-200: rgba(217, 217, 217, 0.07);
-  --color-gainsboro-100: rgba(217, 217, 217, 0.13);
   --color-gray: rgba(0, 0, 0, 0.69);
   --color-gray-100: rgba(0, 0, 0, 0.3);
+  --color-gainsboro-200: rgba(217, 217, 217, 0.07);
+  --color-gainsboro-100: rgba(217, 217, 217, 0.13);
   --color-blueviolet: #9747ff;
 
   /* Gaps */
   --gap-11xl: 30px;
-  --gap-87xl: 106px;
   --gap-68xl: 87px;
   --gap-62xl: 81px;
 
   /* Paddings */
   --padding-base: 16px;
   --padding-3xs: 10px;
+  --padding-73xl: 92px;
   --padding-30xl: 49px;
   --padding-34xl: 53px;
 
   /* border radiuses */
-  --br-3xs: 10px;
   --br-xl: 20px;
+  --br-3xs: 10px;
   --br-mini: 15px;
   --br-11xl: 30px;
   --br-8xs: 5px;
