@@ -21,11 +21,13 @@
 
   </head>
   <body>
+
     <!-- Body of Form starts -->
   	<div class="container">
       <form method="POST" autocomplete="on" action="{{ url_for('signup') }}">
         <!--First name-->
     		<div class="box">
+				<h2> Please Sign Up to create an account</h2>
           <label for="firstName" class="fl fontLabel"> First Name: </label>
     			<div class="new iconBox">
             <i class="fa fa-user" aria-hidden="true"></i>
@@ -36,7 +38,6 @@
     			</div>
     			<div class="clr"></div>
     		</div>
-    		<!--First name-->
 
 
         <!--Second name-->
@@ -49,10 +50,9 @@
     			</div>
     			<div class="clr"></div>
     		</div>
-    		<!--Second name-->
 
 
-    		<!---User Name------>
+    		<!---User Name---->
     		<div class="box">
           <label for="userName" class="fl fontLabel"> User Name: </label>
     			<div class="fl iconBox"><i class="fa fa-user" aria-hidden="true"></i></div>
@@ -61,7 +61,6 @@
     			</div>
     			<div class="clr"></div>
     		</div>
-    		<!---User Name---->
 
 
     		<!---Email ID---->
@@ -73,7 +72,6 @@
     			</div>
     			<div class="clr"></div>
     		</div>
-    		<!--Email ID----->
 
 
     		<!---Password------>
@@ -85,7 +83,6 @@
     			</div>
     			<div class="clr"></div>
     		</div>
-    		<!---Password---->
 
         
 
@@ -93,7 +90,8 @@
     		<div class="box">
     				<button  type="Submit" name="Submit" class="submit" value="SignUp"> SignUp</button>
     		</div>
-    		<!---Submit Button----->
+
+			<p>Have an Account: <a href="{{url_for('login')}} ">Login</a></p>
       </form>
   </div>
   			<div class="about-group">

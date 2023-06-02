@@ -29,8 +29,8 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="C:\Users\Nana Aba\recipe app\RecipeApp-Kibo-TSP-1\templates\public\ra-21@2x.png" alt="" width="60" height="48" class="d-inline-block align-text-top">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+          <img src="static/public/ra-21@2x.png" alt="" width="60" height="48" class="d-inline-block align-text-top">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -45,7 +45,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">Featured recipes</a>
+              <a class="nav-link" href="{{ url_for('featured_recipe')}}">Featured recipes</a>
             </li>
 
             <li class="nav-item">
@@ -53,13 +53,16 @@
             </li>
 
             <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('add_recipe2') }}">Add recipe</a>
+            </li>
+
+            <li class="nav-item">
               <a class="nav-link" href="#">User profile</a>
             </li>
-            
-            
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Signup/Login
+                Account
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{{ url_for('signup') }}">Signup</a></li>

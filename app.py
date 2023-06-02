@@ -1,10 +1,13 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash , Flask
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from models import *
 from dashboard import *
 from database import db, app
 from flask_mail import Message, Mail
 from recipes import *
+import random
+from sqlalchemy import func
+
 
 # app configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users_data.db'
@@ -57,9 +60,10 @@ def send_password_reset_email(user, token):
 def index():
     return render_template('index.html')
 
-@app.route('/')
-def home():
-    return render_template('dashboard.html')
+# @app.route('/')
+# @login_required
+# def home():
+#     return render_template('dashboard.html')
 
 
 # Signup page
@@ -132,14 +136,33 @@ def logout():
 
 
 # Dashboard page
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    return render_template('dashboard.html', user=current_user)
+    categories = ['Breakfast', 'Lunch', 'Dinner', 'Dessert']
+    results = []
+    selected_recipes = set()  # To store the selected recipe IDs
+    recipes_per_category = 3
+
+    for category in categories:
+        recipes = Recipes.query.filter_by(category=category).all()
+
+        # Exclude previously selected recipes from the same category
+        available_recipes = [recipe for recipe in recipes if recipe.id not in selected_recipes and recipe.category == category]
+
+        if len(available_recipes) > 0:
+            # Select up to 3 random recipes from the available recipes
+            random_recipes = random.sample(available_recipes, min(recipes_per_category, len(available_recipes)))
+            selected_recipes.update(recipe.id for recipe in random_recipes)
+            results.extend(random_recipes)
+
+        if len(results) == 9:
+            break
+
+    return render_template('dashboard.html', user=current_user, results=results)
+
 
 # forgot password page
-
-
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if current_user.is_authenticated:
@@ -156,9 +179,8 @@ def forgot_password():
             flash('No user found with that email address.')
             return redirect(url_for('forgot_password'))
     return render_template('forgot_password.html')
+
 # reset password page
-
-
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
@@ -175,12 +197,7 @@ def reset_password(token):
         return redirect(url_for('login'))
     return render_template('reset_password.html', token=token)
 
-
-@app.route('/add_recipe2', methods=['GET', 'POST'])
-@login_required
-def add_recipe2():
-    return Dashboard.add_recipe2()
-
+# search
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     query = request.args.get('query', '')
@@ -188,23 +205,72 @@ def search():
     results = Recipes.query.filter(
         (Recipes.name.ilike(f'%{query}%')) |
         (Recipes.category.ilike(f'%{query}%')) |
+        (Recipes.image_name.ilike(f'%{query}%')) |
         (Recipes.ingredients.ilike(f'%{query}%')) |
         (Recipes.instructions.ilike(f'%{query}%'))
     ).all()
 
     return render_template('search_results.html', results=results, query=query)
 
+# Add recipe
+@app.route('/add_recipe2', methods=['GET','POST'])
+@login_required
+def add_recipe2():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        image_name = request.form.get('image_name')
+        category = request.form.get('category')
+        ingredients = request.form.get('ingredients')
+        instructions = request.form.get('instructions')
+        
+        # Check if recipe already exists in the database
+        recipe = Recipes.query.filter_by(name=name).first()
+        if recipe:
+            # Delete existing recipe and related data from the database
+            db.session.delete(recipe)
+        
+        # Delete all related data that matches the existing recipe name
+        Recipes.query.filter_by(name=name).delete()
+        
+        # Add new recipe to the database
+        new_recipe = Recipes(name=name, image_name = image_name , category=category, ingredients=ingredients, instructions=instructions)
+        db.session.add(new_recipe)
+        db.session.commit()
+        
+        return redirect(url_for('dashboard'))
 
+    # Handle GET request (render the add_recipe2.html template)
+    return render_template('add_recipe2.html')
 
-# def search():
-#     if request.method == 'POST':
-#         search_string = request.form['search']
-#         recipes = Recipes.query.filter(Recipes.title.ilike(f'%{search_string}%')).all()
-#         return render_template('dashboard.html', recipes=recipes, search_string=search_string, user=current_user)
-#     else:
-#         return render_template('dashboard.html', user=current_user)
+# List recipe with details on click
+
+@app.route('/recipe', methods=['GET', 'POST'])
+def recipe():
+    recipe_id = int(request.args.get('id'))
+    recipe = Recipes.query.get(recipe_id)
+    return render_template('recipe.html', recipe=recipe)
+
+# Featured recipes
+
+@app.route('/featured-recipes', methods=['GET', 'POST'])
+def featured_recipe():
+    recipes = Recipes.query.order_by(func.random()).limit(4).all()
+    return render_template('featured_recipes.html', recipes=recipes)
+
+# View recipe route
+@app.route('/view_recipe/<recipe_id>')
+@login_required
+def view_recipe(recipe_id):
+    recipe = Recipes.query.get(recipe_id)
+    if recipe:
+        return render_template('view_recipe.html', recipe=recipe)
+    else:
+        flash('Recipe not found.', 'danger')
+        return redirect(url_for('dashboard'))
+
 
 
 if __name__ == '__main__':
         
     app.run(debug=True)
+
