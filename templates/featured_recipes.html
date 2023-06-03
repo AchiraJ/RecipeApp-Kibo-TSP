@@ -133,44 +133,19 @@
   </style>
 </head>
 <body>
-  <section class="layout">
-    <div class="body">
-      <h1>Add Recipe</h1>
-
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <div class="flash-messages">
-            {% for message in messages %}
-              <div class="flash-message">{{ message }}</div>
+    <body>
+        <h1>Featured Recipes</h1>
+        <div class="recipe-list">
+            {% for recipe in recipes %}
+            <div class="recipe">
+                <h3>{{ recipe.name }}</h3>
+                <a href="{{ url_for('view_recipe', recipe_id=recipe.id) }}">
+                    <img src="{{ recipe.image_name }}" alt="{{ recipe.name }} image" width="200" height="200">
+                </a>
+            </div>
             {% endfor %}
-          </div>
-        {% endif %}
-      {% endwith %}
-
-      <form method="post" enctype="multipart/form-data" action="{{ url_for('add_recipe2') }}">
-        <div class="form-group">
-          <label for="name">Name:</label>
-          <input type="text" class="form-control" id="name" name="name" required>
         </div>
-        <div class="form-group">
-          <label for="category">Category:</label>
-          <input type="text" class="form-control" id="category" name="category" required>
-        </div>
-        <div class="form-group">
-          <label for="ingredients">Ingredients:</label>
-          <textarea class="form-control" id="ingredients" name="ingredients" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="instructions">Instructions:</label>
-          <textarea class="form-control" id="instructions" name="instructions" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="image">Image:</label>
-          <input type="file" class="form-control-file" id="image" name="image_name">
-        </div>
-      
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+    </body>
     </div>
   </section>
    <!-- Optional JavaScript; choose one of the two! -->

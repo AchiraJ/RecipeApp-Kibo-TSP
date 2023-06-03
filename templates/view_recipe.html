@@ -133,46 +133,12 @@
   </style>
 </head>
 <body>
-  <section class="layout">
-    <div class="body">
-      <h1>Add Recipe</h1>
-
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <div class="flash-messages">
-            {% for message in messages %}
-              <div class="flash-message">{{ message }}</div>
-            {% endfor %}
-          </div>
-        {% endif %}
-      {% endwith %}
-
-      <form method="post" enctype="multipart/form-data" action="{{ url_for('add_recipe2') }}">
-        <div class="form-group">
-          <label for="name">Name:</label>
-          <input type="text" class="form-control" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-          <label for="category">Category:</label>
-          <input type="text" class="form-control" id="category" name="category" required>
-        </div>
-        <div class="form-group">
-          <label for="ingredients">Ingredients:</label>
-          <textarea class="form-control" id="ingredients" name="ingredients" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="instructions">Instructions:</label>
-          <textarea class="form-control" id="instructions" name="instructions" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="image">Image:</label>
-          <input type="file" class="form-control-file" id="image" name="image_name">
-        </div>
-      
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
-  </section>
+    <h1>{{ recipe.name }}</h1>
+    <h3>Ingredients:</h3>
+    <p>{{ recipe.ingredients }}</p>
+    <h3>Instructions:</h3>
+    <p>{{ recipe.instructions }}</p>
+</body>
    <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
