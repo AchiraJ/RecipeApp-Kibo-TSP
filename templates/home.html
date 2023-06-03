@@ -9,8 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>Recipe App</title>
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/static/global.css">
+    <link rel="stylesheet" href="/static/home.css">
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
@@ -40,7 +40,7 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
             </li>
-            
+
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('featured_recipe')}}">Featured recipes</a>
             </li>
@@ -90,14 +90,17 @@
       <p class="discover-a-plethora">Discover a plethora</p>
       <p class="discover-a-plethora">African dishes</p>
     </div>
+    
     <div class="the-number-1">
       The number #1 site for recipes on all African dishes
     </div>
+    
     <div class="homepage-inner">
       <div class="rectangle-wrapper">
         <div class="frame-child"></div>
       </div>
     </div>
+    
     <h6 class="recipe-app-is-container" id="intro recipe app">
       <p class="discover-a-plethora">
         Recipe App is a recipe sharing site of African cuisine where food
@@ -105,34 +108,33 @@
         new favorite African dish.
       </p>
     </h6>
-
+    
     <section class="layout">
       {% for recipe in recipes %}
-        <div>
-          <a href="recipe?id={{ recipe.id }}">
-            <img src="{{ url_for('static', filename='recipe_images/' + recipe.image_name) }}" alt="Recipe Image">
-          </a>
-
-          <ul>
-            <p><a href="recipe?id={{ recipe.id }}">{{ recipe.name }}</a></p>
-          </ul>
-        </div>
+      <div>
+        <a href="recipe?id={{ recipe.id }}">
+          <img src="{{ url_for('static', filename='recipe_images/' + recipe.image_name) }}" alt="Recipe Image">
+        </a>
+        <ul>
+          <p><a href="recipe?id={{ recipe.id }}">{{ recipe.name }}</a></p>
+        </ul>
+      </div>
       {% endfor %}
     </section>
-   
-        <span><a href="{{ url_for('signup') }}" class="create-a-free">Create a free account</a></span>
-        
-      <style>
-        .layout {
-          width: 1366px;
-          height: 768px;
-        
-          display: grid;
-          grid-template-rows: repeat(3, 1fr);
-          grid-template-columns: repeat(3, 1fr);
-          gap: 8px;
-        }
-        </style>
+    
+    <span><a href="{{ url_for('signup') }}" class="create-a-free">Create a free account</a></span>
+    
+    <style>
+    .layout {
+      width: 1366px;
+      height: 768px;
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    </style>
+    
     
 
     <!-- Optional JavaScript; choose one of the two! -->

@@ -109,8 +109,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 # Login page
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -121,6 +119,8 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
             login_user(user)
+            with app.test_request_context():
+                flash('You have been logged in successfully.', 'clear')
             flash('You have been logged in successfully.')
             return redirect(url_for('dashboard'))
         else:
@@ -262,12 +262,11 @@ def add_recipe2():
         db.session.commit()
         
         return redirect(url_for('dashboard'))
-
-    # Handle GET request (render the add_recipe2.html template)
     return render_template('add_recipe2.html')
 
 # List recipe with details on click
 @app.route('/recipe', methods=['GET', 'POST'])
+@login_required
 def recipe():
     recipe_id = int(request.args.get('id'))
     recipe = Recipes.query.get(recipe_id)
@@ -288,7 +287,7 @@ def search_category():
 
 @app.route('/featured-recipes', methods=['GET', 'POST'])
 def featured_recipe():
-    recipes = Recipes.query.order_by(func.random()).limit(4).all()
+    recipes = Recipes.query.order_by(func.random()).limit(6).all()
     return render_template('featured_recipes.html', recipes=recipes)
 
 # View recipe route

@@ -54,20 +54,8 @@
       </div>
     </nav>
 
-    <div class="discover-a-plethora-container">
-      <p class="discover-a-plethora">Discover a plethora</p>
-      <p class="discover-a-plethora">African dishes</p>
-    </div>
-    <div class="the-number-1">
-      The number #1 site for recipes on all African dishes
-    </div>
-    <div class="homepage-inner">
-      <div class="rectangle-wrapper">
-        <div class="frame-child"></div>
-      </div>
-    </div>
     <h1>Search Results for "{{ query }}"</h1>
-    <ul>
+      <section class="layout">
         {% if results %}
             {% for recipe in results %}
               <div>
@@ -82,24 +70,20 @@
         {% else %}
             <p>No results found.</p>
         {% endif %}
-    </ul>
-    
+      </section>
+
+    <style>
+      .layout {
+        width: 1366px;
+        height: 768px;
       
-    <div class="to-save-and-container">
-      <p class="discover-a-plethora">&nbsp;</p> 
-    </div>
-
-
-    <div class="frame-parent">
-      <button class="view-recipe-wrapper" autofocus>
-        <div class="view-recipe">view recipe</div>
-      </button>
-      <button class="share-recipe-wrapper" autofocus>
-        <div class="view-recipe">share recipe</div>
-      </button>
-    </div>
-  </div>
-
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      </style>
+    
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

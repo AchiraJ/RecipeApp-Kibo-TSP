@@ -30,7 +30,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">Recipe categories</a>
+              <a class="nav-link" href="{{ url_for('search_category') }}">Recipe categories</a>
             </li>
 
             <li class="nav-item">
@@ -126,6 +126,8 @@
       margin-left: 50px;
     }
 
+  
+
     
   </style>
 </head>
@@ -134,15 +136,6 @@
     <div class="body">
       <h1>Add Recipe</h1>
 
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <div class="flash-messages">
-            {% for message in messages %}
-              <div class="flash-message">{{ message }}</div>
-            {% endfor %}
-          </div>
-        {% endif %}
-      {% endwith %}
 
       <form method="post" enctype="multipart/form-data" action="{{ url_for('add_recipe2') }}">
         <div class="form-group">
