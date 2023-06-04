@@ -93,20 +93,26 @@
     <div class="the-number-1">
       The number #1 site for recipes on all African dishes
     </div>
+    <!-- <div class="homepage-inner">
+      <div class="rectangle-wrapper">
+        <div class="frame-child"></div>
+        <section class="layout">
+      {% for recipe in recipes %} -->
+          
+    <div>
+      <a href="recipe?id={{ recipe.id }}">
+        <img class="homepage-item" alt="" src="{{ url_for('static', filename='recipe_images/' + recipe.image_name) }}" alt="Recipe Image">
+      </a>
 
-    <section class="layout">
-      {% for recipe in recipes %}
-      <div>
-        <a href="recipe?id={{ recipe.id }}">
-          <img src="{{ url_for('static', filename='recipe_images/' + recipe.image_name) }}" alt="Recipe Image">
-        </a>
-        <ul>
-          <p><a href="recipe?id={{ recipe.id }}">{{ recipe.name }}</a></p>
-        </ul>
+      <div class="recipe-id">
+      <ul>
+        <p><a href="recipe?id={{ recipe.id }}">{{ recipe.name }}</a></p>
+      </ul>
       </div>
-      {% endfor %}
-    </section>
-
+    </div>
+  <!--{% endfor %} -->
+</section>
+        
       </div>
     </div>
     <h6 class="recipe-app-is-container" id="intro recipe app">
