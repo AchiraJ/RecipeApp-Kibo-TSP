@@ -75,3 +75,21 @@
     </div>
   </body>
 </html>
+
+
+<section class="layout">
+  {% for recipe in recipes %}
+  <div>
+    <a href="recipe?id={{ recipe.id }}">
+      <img src="{{ url_for('static', filename='recipe_images/' + recipe.image_name) }}" alt="Recipe Image">
+    </a>
+    <ul>
+      <p><a href="recipe?id={{ recipe.id }}">{{ recipe.name }}</a></p>
+    </ul>
+  </div>
+  {% endfor %}
+</section>
+
+<span><a href="{{ url_for('signup') }}" class="create-a-free">Create a free account</a></span>
+
+<style>

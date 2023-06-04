@@ -1,0 +1,159 @@
+/* global.css */
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: rgba(248, 235, 230, 0.808);
+  }
+  
+  h6#intro.recipe-app {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+  .discover-a-plethora-container {
+    text-align: center;
+    margin-top: 48px;
+  }
+  
+  .discover-a-plethora {
+    font-size: 48px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .recipe-app-is-container {
+    text-align: center;
+    margin-top: 30px;
+    width: 800px;
+    margin: auto;
+  }
+  .discover-a-plethora2 {
+    font-size: 18px;
+    font-weight: 200;
+    text-align: center;
+  }
+  
+  .the-number-1 {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 20px;
+    font-weight: 400;
+    color: orangered;
+    font-family: cursive;
+  }
+  
+  .homepage-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+  }
+  
+  .rectangle-wrapper {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+  }
+  
+  .frame-child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background-color: #fff;
+  }
+  
+  .layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 8px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+  }
+  
+  .layout div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .layout img {
+    max-width: 100%;
+    height: 50%;
+    border-radius: 8px;
+  }
+  
+  .layout ul {
+    margin-top: 8px;
+  }
+  
+  .layout p {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .homepage-item {
+    position:relative;
+    height: 20.78%;
+    width: 27.5%;
+    top: 46%;
+    right: 30%;
+    bottom: 28.22%;
+    left: 36%;
+    border-radius: var(--br-3xs);
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: cover;
+    padding-top: 30px;
+  }
+  
+  .recipe-id {
+    position: relative;
+    right: 30%;
+    left: 45%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .create-a-free {
+    display: block;
+    text-align: center;
+    margin-top: 24px;
+    font-size: 14px;
+    font-weight: 200px;
+    color: orangered;
+  }
+  
+  
+  /* index.css */
+  .navbar-nav {
+    margin-left: auto;
+  }
+  
+  .nav-link {
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 16px;
+  }
+  
+  .navbar-brand img {
+    margin-right: 8px;
+  }
+  
+  .form-control {
+    width: 200px;
+    font-size: 14px;
+    border-color: orangered;
+  }
+  
+  .btn-outline-success {
+    font-size: 14px;
+    background-color: rgba(219, 191, 180, 0.466);
+    border-color: orangered;
+  }

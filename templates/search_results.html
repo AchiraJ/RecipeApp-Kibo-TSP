@@ -4,11 +4,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>Recipe App</title>
+    <link rel="stylesheet" href="/static/global.css">
+    <link rel="stylesheet" href="/static/search.css">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -54,7 +56,7 @@
       </div>
     </nav>
 
-    <h1>Search Results for "{{ query }}"</h1>
+    <!-- <h1>Search Results for "{{ query }}"</h1> -->
       <section class="layout">
         {% if results %}
             {% for recipe in results %}
@@ -72,17 +74,6 @@
         {% endif %}
       </section>
 
-    <style>
-      .layout {
-        width: 1366px;
-        height: 768px;
-      
-        display: grid;
-        grid-template-rows: repeat(3, 1fr);
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-      }
-      </style>
     
     <!-- Optional JavaScript; choose one of the two! -->
 

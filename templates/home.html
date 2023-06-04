@@ -40,7 +40,7 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
             </li>
-
+            
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('featured_recipe')}}">Featured recipes</a>
             </li>
@@ -90,25 +90,10 @@
       <p class="discover-a-plethora">Discover a plethora</p>
       <p class="discover-a-plethora">African dishes</p>
     </div>
-    
     <div class="the-number-1">
       The number #1 site for recipes on all African dishes
     </div>
-    
-    <div class="homepage-inner">
-      <div class="rectangle-wrapper">
-        <div class="frame-child"></div>
-      </div>
-    </div>
-    
-    <h6 class="recipe-app-is-container" id="intro recipe app">
-      <p class="discover-a-plethora">
-        Recipe App is a recipe sharing site of African cuisine where food
-        lovers can post recipes from anywhere on the web. Use it to discover a
-        new favorite African dish.
-      </p>
-    </h6>
-    
+
     <section class="layout">
       {% for recipe in recipes %}
       <div>
@@ -121,20 +106,31 @@
       </div>
       {% endfor %}
     </section>
+
+      </div>
+    </div>
+    <h6 class="recipe-app-is-container" id="intro recipe app">
+      <p class="discover-a-plethora2">
+        Recipe App is a recipe sharing site of African cuisine where food
+        lovers can post recipes from anywhere on the web. Use it to discover a
+        new favorite African dish.
+        <span><a href="{{ url_for('signup') }}" class="create-a-free">Create a free account</a></span>
+      </p>
+    </h6>
+
     
-    <span><a href="{{ url_for('signup') }}" class="create-a-free">Create a free account</a></span>
-    
-    <style>
-    .layout {
-      width: 1366px;
-      height: 768px;
-      display: grid;
-      grid-template-rows: repeat(3, 1fr);
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-    </style>
-    
+        
+      <!-- <style>
+        .layout {
+          width: 1366px;
+          height: 768px;
+        
+          display: grid;
+          grid-template-rows: repeat(3, 1fr);
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
+        }
+        </style> -->
     
 
     <!-- Optional JavaScript; choose one of the two! -->
